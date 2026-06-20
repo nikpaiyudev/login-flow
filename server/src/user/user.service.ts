@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaClient } from 'generated/prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ResponseDto } from '@/lib/models/response.dto';
 import { User } from 'generated/prisma/browser';
 
 @Injectable()
@@ -9,8 +8,18 @@ export class UserService {
 
     constructor(private prismaService: PrismaClient) { }
 
-    public async createUser(createUserDto: CreateUserDto): Promise<ResponseDto<Omit<User, 'password' | 'updatedAt'>>> {
+    /**
+     * Creates a new user in the database.
+     * First checks if a user with the same email already exists.
+     * @param createUserDto - The user data for creation.
+     * @returns A response object with the created user data (excluding password).
+     */
+    public async createUser(createUserDto: CreateUserDto): Promise<Omit<User, 'password' | 'updatedAt'>> {
         try {
+            const isUserExists = await this.checkUserExists(createUserDto.emailId);
+            if (isUserExists) {
+                throw new ConflictException('A User with this email already exists');
+            }
             const newUser = await this.prismaService.user.create({
                 data: createUserDto, select: {
                     id: true,
@@ -20,13 +29,24 @@ export class UserService {
                     createdAt: true
                 }
             });
-            return {
-                success: true,
-                message: "User Created Successfully",
-                data: newUser
-            }
+            return newUser;
         } catch (e) {
             throw e;
+        }
+    }
+
+    /**
+     * Checks if a user exists with the given email address.
+     * Queries the database for a user with the specified emailId.
+     * @param emailId - The email address to check for existence.
+     * @returns True if user exists, false otherwise.
+     */
+    public async checkUserExists(emailId: string): Promise<User | null> {
+        try {
+            const user = this.prismaService.user.findUnique({ where: { emailId } });
+            return user || null;
+        } catch (e) {
+            throw new ConflictException('Error in Finding User');
         }
     }
 
