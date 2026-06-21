@@ -3,7 +3,7 @@ import { SignupUserDto } from './dto/signup.dto';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { LoginUserDto } from './dto/login.dto';
-import { ResponseDto } from '@/lib/models/response.dto';
+import { ResponseDto } from '@/shared/models/response.dto';
 import { User } from 'generated/prisma/browser';
 
 @Controller('auth')
@@ -12,9 +12,13 @@ export class AuthController {
     constructor(private authService: AuthService) { }
 
     @Post('/signup')
-    public async signup(@Body() signupUserDto: SignupUserDto): Promise<ResponseDto<User>> {
+    public async signup(@Body() signupUserDto: SignupUserDto): Promise<ResponseDto<Omit<User, 'password' | 'updatedAt'>>> {
         const user = await this.authService.signupUser(signupUserDto);
-
+        return {
+            data: user,
+            message: 'User Created Successfully',
+            success: true
+        }
     }
 
     @Post('/login')
@@ -26,7 +30,7 @@ export class AuthController {
             httpOnly: true,
             secure: true,
             sameSite: 'lax',
-            maxAge: 3600000
+            maxAge: 3600000 // 1 Hour
         });
 
         return {

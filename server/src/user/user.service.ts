@@ -1,12 +1,12 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { PrismaClient } from 'generated/prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from 'generated/prisma/browser';
+import { PrismaService } from '@/shared/services/prisma.service';
 
 @Injectable()
 export class UserService {
 
-    constructor(private prismaService: PrismaClient) { }
+    constructor(private prismaService: PrismaService) { }
 
     /**
      * Creates a new user in the database.

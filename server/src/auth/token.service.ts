@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import token from 'jsonwebtoken';
+import * as token from 'jsonwebtoken';
 
 const REFRESH_TOKEN_EXPIRY = '7d';
 const ACCESS_TOKEN_EXPIRY = '1h';
