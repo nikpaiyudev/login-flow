@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import './App.css'
+import AuthPage from './pages/AuthPage'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <span>Hello</span>
-  )
+  return <div className='container mx-auto max-w-[1200px] h-screen'>
+    <AuthPage />
+  </div>
 }
 
 export default App

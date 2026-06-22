@@ -46,7 +46,7 @@ export class AuthService {
 
     public async signupUser(signupUserDto: SignupUserDto): Promise<Omit<User, 'password' | 'updatedAt'>> {
         try {
-
+            this.logger.log('Signup User', signupUserDto);
             const user = await this.userService.checkUserExists(signupUserDto.emailId);
             if (user) {
                 throw new ConflictException("User already exists");
