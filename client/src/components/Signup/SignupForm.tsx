@@ -1,5 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import Input from "../ui/Input";
+import { EMAIL_REGEX } from "@/lib/constants/regex";
 
 export default function SignupForm() {
 
@@ -10,27 +11,38 @@ export default function SignupForm() {
             <Controller
                 name="fullName"
                 control={control}
-                render={({ field }) => <Input label="Full Name" placeholder="Enter Fullname" {...field} />}
+                render={({ field, formState: { errors } }) => <Input errors={errors} label="Full Name" placeholder="Enter Fullname" {...field} />}
             />
             <Controller
                 name="emailId"
                 control={control}
-                render={({ field }) => <Input label="EmailId" placeholder="Enter EmailId" {...field} />}
+                rules={{
+                    required: 'EmailId is required', pattern: {
+                        value: new RegExp(EMAIL_REGEX),
+                        message: 'Emailid is invalid'
+                    }
+                }}
+                render={({ field, formState: { errors } }) => <Input type="email" errors={errors} label="EmailId" placeholder="Enter EmailId" {...field} />}
             />
             <Controller
                 name="username"
                 control={control}
-                render={({ field }) => <Input label="Username" placeholder="Enter Username" {...field} />}
+                rules={{
+                    required: 'Username is required'
+                }}
+                render={({ field, formState: { errors } }) => <Input errors={errors} label="Username" placeholder="Enter Username" {...field} />}
             />
             <Controller
                 name="password"
                 control={control}
-                render={({ field }) => <Input label="Password" placeholder="Enter Password" {...field} />}
+                rules={{ required: 'Password is required' }}
+                render={({ field, formState: { errors } }) => <Input type="password" errors={errors} label="Password" placeholder="Enter Password" {...field} />}
             />
             <Controller
                 name="passwordAgain"
                 control={control}
-                render={({ field }) => <Input label="Enter Password again" placeholder="Enter Password Again" {...field} />}
+                rules={{ required: 'Password Again is required' }}
+                render={({ field, formState: { errors } }) => <Input type="password" errors={errors} label="Enter Password again" placeholder="Enter Password Again" {...field} />}
             />
         </div>
     );
