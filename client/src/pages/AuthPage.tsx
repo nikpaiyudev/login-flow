@@ -1,3 +1,4 @@
+import AuthContainer from "@/components/AuthContainer"; 
 import Login from "@/components/Login/Login";
 import Signup from "@/components/Signup/Signup";
 import useAuth from "@/lib/hooks/useAuth";
@@ -19,9 +20,8 @@ export default function AuthPage() {
     }, [isLoggedIn]);
 
     return (
-        <div className="flex w-full gap-5 flex-col justify-center items-center h-full ">
-            <div className="flex flex-col gap-5 items-start w-96 bg-white p-10 shadow rounded">
-                <span className="font-bold">Linear</span>
+        <AuthContainer>
+            <span className="font-bold text-base">LINEAR AI</span>   
                 <div className="flex flex-col gap-5 items-start w-full">
                     <div role="tablist" className="tabs tabs-box">
                         <a role="tab" onClick={() => setActiveTab(1)} className={`tab ${isLogin ? 'tab-active' : ''}`}>Login</a>
@@ -35,9 +35,6 @@ export default function AuthPage() {
                         }
                     </div>
                 </div>
-
-            </div>
-
-        </div>
+        </AuthContainer>
     );
 }

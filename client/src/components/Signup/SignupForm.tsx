@@ -35,13 +35,23 @@ export default function SignupForm() {
             <Controller
                 name="password"
                 control={control}
-                rules={{ required: 'Password is required' }}
+                rules={{ required: 'Password is required', validate: (value) => {
+                    if (value !== control._formValues.passwordAgain) {
+                        return 'Passwords do not match';
+                    }
+                    return true;
+                }}}
                 render={({ field, formState: { errors } }) => <Input type="password" errors={errors} label="Password" placeholder="Enter Password" {...field} />}
             />
             <Controller
                 name="passwordAgain"
                 control={control}
-                rules={{ required: 'Password Again is required' }}
+                rules={{ required: 'Password Again is required', validate: (value) => {
+                    if (value !== control._formValues.password) {
+                        return 'Passwords do not match';
+                    }
+                    return true;
+                } }}
                 render={({ field, formState: { errors } }) => <Input type="password" errors={errors} label="Enter Password again" placeholder="Enter Password Again" {...field} />}
             />
         </div>

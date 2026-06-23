@@ -6,9 +6,9 @@
 }
 
 @plugin "daisyui/theme" {
-    name: "light";
-
-    --color-primary: #2E282A;
+    name: 'light';
+    default: true;
+    --color--primary: #2E282A;
 }
 
 html {

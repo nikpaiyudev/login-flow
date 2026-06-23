@@ -8,37 +8,42 @@ import { User } from 'generated/prisma/browser';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
 
-    constructor(private authService: AuthService) { }
+  @Post('/signup')
+  public async signup(
+    @Body() signupUserDto: SignupUserDto,
+  ): Promise<ResponseDto<Omit<User, 'password' | 'updatedAt' | 'isVerified'>>> {
+    const user = await this.authService.signupUser(signupUserDto);
+    return {
+      data: user,
+      message: 'User Created Successfully',
+      success: true,
+    };
+  }
 
-    @Post('/signup')
-    public async signup(@Body() signupUserDto: SignupUserDto): Promise<ResponseDto<Omit<User, 'password' | 'updatedAt'>>> {
-        const user = await this.authService.signupUser(signupUserDto);
-        return {
-            data: user,
-            message: 'User Created Successfully',
-            success: true
-        }
-    }
+  @Post('/login')
+  public async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() loginUserDto: LoginUserDto,
+  ): Promise<ResponseDto<{ accessToken: string }>> {
+    const tokens = await this.authService.loginUser(loginUserDto);
+    const { accessToken } = tokens;
 
-    @Post('/login')
-    public async login(@Res({ passthrough: true }) res: Response, @Body() loginUserDto: LoginUserDto): Promise<ResponseDto<{ accessToken: string }>> {
-        const tokens = await this.authService.loginUser(loginUserDto);
-        const { accessToken } = tokens;
+    res.cookie('refresh_token', tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      maxAge: 3600000, // 1 Hour
+    });
 
-        res.cookie('refresh_token', tokens.refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'lax',
-            maxAge: 3600000 // 1 Hour
-        });
+    return {
+      data: { accessToken },
+      message: 'User logged in successfully',
+      success: true,
+    };
+  }
 
-        return {
-            data: { accessToken },
-            message: 'User logged in successfully',
-            success: true
-        }
-
-    }
-
+  @Post('/forgot-password')
+  public async forgotPassword() {}
 }
