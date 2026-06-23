@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as token from 'jsonwebtoken';
 
 const REFRESH_TOKEN_EXPIRY = '7d';
-const ACCESS_TOKEN_EXPIRY = '1h';
+const ACCESS_TOKEN_EXPIRY = '10m';
 
 type jwtPaylod = {
     sub: number;

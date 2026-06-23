@@ -1,18 +1,21 @@
 import type { UserFormFields } from "@/lib/models/user";
+import { accessTokenAtom } from "@/lib/state/atoms/user.atom";
+
 import { loginUserQueryAtom } from "@/lib/state/query/user-query.atom";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 export default function LoginBtn() {
 
     const { handleSubmit } = useFormContext();
-    const { mutate } = useAtomValue(loginUserQueryAtom);
+    const { mutateAsync } = useAtomValue(loginUserQueryAtom);
+    const setAccessToken = useSetAtom(accessTokenAtom);
     const navigate = useNavigate();
 
-    const onSubmit = (data: Omit<UserFormFields, 'fullName' | 'username' | 'passwordAgain'>) => {
-        console.log(data, 'data');
-        mutate(data);
+    const onSubmit = async (data: Omit<UserFormFields, 'fullName' | 'username' | 'passwordAgain'>) => {
+        const res = await mutateAsync(data);
+        setAccessToken(res.data.accessToken);
         navigate('/home');
     }
 
