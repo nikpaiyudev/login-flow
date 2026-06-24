@@ -18,5 +18,7 @@ export default function ProtectedRoute(): JSX.Element {
         navigate('/');
     }
 
-    return <Outlet />
+    return <div className='container mx-auto max-w-[1200px] h-screen'>
+        <Outlet />
+    </div>
 }

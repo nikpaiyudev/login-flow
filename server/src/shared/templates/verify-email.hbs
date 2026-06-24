@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,13 @@
             padding: 0;
             background-color: #f5f5f5;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
+
         .header {
             background-color: #4f46e5;
             color: white;
@@ -25,12 +28,14 @@
             text-align: center;
             border-radius: 8px 8px 0 0;
         }
+
         .content {
             background-color: white;
             padding: 40px 30px;
             border-radius: 0 0 8px 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .button {
             display: inline-block;
             background-color: #4f46e5;
@@ -42,15 +47,18 @@
             font-size: 16px;
             margin: 20px 0;
         }
+
         .button:hover {
             background-color: #4338ca;
         }
+
         .footer {
             text-align: center;
             margin-top: 30px;
             color: #666;
             font-size: 14px;
         }
+
         .code {
             background-color: #f3f4f6;
             border: 1px solid #e5e7eb;
@@ -62,6 +70,7 @@
             text-align: center;
             margin: 20px 0;
         }
+
         .divider {
             height: 1px;
             background-color: #e5e7eb;
@@ -69,6 +78,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -76,19 +86,21 @@
         </div>
         <div class="content">
             <p>Hello {{name}},</p>
-            <p>Thank you for signing up! To complete your registration and start using our service, please verify your email address by clicking the button below:</p>
-            
+            <p>Thank you for signing up! To complete your registration and start using our service, please verify your
+                email address by clicking the button below:</p>
+
             <div style="text-align: center;">
                 <a href="{{verificationLink}}" class="button">Verify Email Address</a>
             </div>
-            
+
             <p>Or copy and paste this link into your browser:</p>
             <div class="code">{{verificationLink}}</div>
-            
+
             <div class="divider"></div>
-            
-            <p>This verification link will expire in 24 hours. If you didn't create an account with us, please ignore this email.</p>
-            
+
+            <p>This verification link will expire in 24 hours. If you didn't create an account with us, please ignore
+                this email.</p>
+
             <p>If you're having trouble clicking the button, you can also:</p>
             <ol>
                 <li>Copy the verification link above</li>
@@ -96,19 +108,20 @@
                 <li>Paste the link into the address bar</li>
                 <li>Press Enter to verify your email</li>
             </ol>
-            
+
             <p>Need help? <a href="mailto:support@example.com">Contact our support team</a>.</p>
         </div>
-        
+
         <div class="footer">
             <p>© 2024 Your Company Name. All rights reserved.</p>
             <p>1234 Street Name, City, State 12345</p>
             <p>
-                <a href="{{unsubscribeLink}}" style="color: #666;">Unsubscribe</a> | 
-                <a href="{{privacyPolicyLink}}" style="color: #666;">Privacy Policy</a> | 
+                <a href="{{unsubscribeLink}}" style="color: #666;">Unsubscribe</a> |
+                <a href="{{privacyPolicyLink}}" style="color: #666;">Privacy Policy</a> |
                 <a href="{{termsLink}}" style="color: #666;">Terms of Service</a>
             </p>
         </div>
     </div>
 </body>
+
 </html>

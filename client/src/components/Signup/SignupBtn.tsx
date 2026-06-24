@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 export default function SignupBtn() {
 
     const { handleSubmit } = useFormContext();
-    const { mutate } = useAtomValue(signupUserQueryAtom);
+    const { mutate, isPending } = useAtomValue(signupUserQueryAtom);
 
     const onSubmit = (data: UserFormFields) => {
         if (!data) return;
@@ -15,6 +15,12 @@ export default function SignupBtn() {
     }
 
     return (
-        <button type="submit" onClick={handleSubmit(onSubmit)} className="btn btn-primary">Signup</button>
+        <button type="submit" onClick={handleSubmit(onSubmit)} disabled={isPending} className="btn btn-primary">
+            {
+                isPending ?
+                    <span className="loading loading-dots loading-xs"></span>
+                    : <>Signup</>
+            }
+        </button>
     );
 }

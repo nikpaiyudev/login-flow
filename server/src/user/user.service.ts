@@ -5,7 +5,7 @@ import { PrismaService } from '@/shared/services/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   /**
    * Creates a new user in the database.
@@ -51,4 +51,14 @@ export class UserService {
       throw new ConflictException('Error in Finding User');
     }
   }
+
+
+  public async deleteUser(emailId: string) {
+    try {
+      this.prismaService.user.delete({ where: { emailId } });
+    } catch (err) {
+      throw new Error('Error happened while deleting user');
+    }
+  }
+
 }

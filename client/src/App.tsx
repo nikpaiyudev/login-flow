@@ -3,9 +3,7 @@ import './App.css'
 
 
 function App() {
-  return <div className='container mx-auto max-w-[1200px] h-screen'>
-    <Outlet />
-  </div>
+  return <Outlet />
 }
 
 export default App

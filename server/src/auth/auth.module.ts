@@ -4,10 +4,12 @@ import { AuthController } from './auth.controller';
 import { UserModule } from '@/user/user.module';
 import { HashService } from './hash.service';
 import { TokenService } from './token.service';
+import { SharedModule } from '@/shared/shared.module';
+import { MailModule } from '@/mail/mail.module';
 
 @Module({
   providers: [AuthService, HashService, TokenService],
   controllers: [AuthController],
-  imports: [UserModule],
+  imports: [UserModule, SharedModule, MailModule],
 })
-export class AuthModule {}
+export class AuthModule { }

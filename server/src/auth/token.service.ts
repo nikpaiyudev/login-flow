@@ -12,7 +12,7 @@ type jwtPaylod = {
 @Injectable()
 export class TokenService {
   // Token Service
-  constructor() {}
+  constructor() { }
 
   /**
    * Generates a refresh token for the given username.
@@ -30,8 +30,8 @@ export class TokenService {
    * @param username - The username to include in the token payload.
    * @returns The signed access token.
    */
-  public generateAccessToken(payload: jwtPaylod) {
-    return this.generateToken(payload, ACCESS_TOKEN_EXPIRY);
+  public generateAccessToken(payload: jwtPaylod, expiry?: string) {
+    return this.generateToken(payload, expiry ? expiry : ACCESS_TOKEN_EXPIRY);
   }
 
   /**
