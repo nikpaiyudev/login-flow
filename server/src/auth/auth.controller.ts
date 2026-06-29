@@ -5,10 +5,11 @@ import { Response } from 'express';
 import { LoginUserDto } from './dto/login.dto';
 import { ResponseDto } from '@/shared/models/response.dto';
 import { User } from 'generated/prisma/browser';
+import { EmailVerificationDto } from './dto/email-verification.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('/signup')
   public async signup(
@@ -44,6 +45,10 @@ export class AuthController {
     };
   }
 
+  public verifyEmailId(@Body() emailVerificationDto: EmailVerificationDto) {
+    return this.authService.verifyEmailId(emailVerificationDto.token);
+  }
+
   @Post('/forgot-password')
-  public async forgotPassword() {}
+  public async forgotPassword() { }
 }

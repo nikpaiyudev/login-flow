@@ -1,4 +1,4 @@
-import { loginUser, signupUser } from "@/lib/apis/query-functions";
+import { loginUser, signupUser, verifyEmailId } from "@/lib/apis/query-functions";
 import { atomWithMutation } from "jotai-tanstack-query";
 
 
@@ -22,6 +22,14 @@ const signupUserQueryAtom = atomWithMutation(() => ({
 }));
 
 
+/**
+ * Jotai atom that manages the email verification mutation state using TanStack Query
+ * Provides loading, error, and success states for the email verification process
+ */
+const verifyEmailIdQueryAtom = atomWithMutation(() => ({
+    mutationFn: verifyEmailId,
+    mutationKey: ['verifyEmail']
+}));
 
 
-export { loginUserQueryAtom, signupUserQueryAtom };
+export { loginUserQueryAtom, signupUserQueryAtom, verifyEmailIdQueryAtom };

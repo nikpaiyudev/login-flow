@@ -33,4 +33,21 @@ async function signupUser(userSignupRequestDto: UserSignupRequestDto): Promise<R
     return await res.json();
 }
 
-export { loginUser, signupUser };
+/**
+ * Verifies a user's email address using the verification token sent to their email
+ * @param verificationToken - The unique token received via email to confirm the user's email ownership
+ * @returns The server response containing verification status or error information
+ */
+async function verifyEmailId(verificationToken: string): Promise<ResponseDto<null>> {
+    const res = await fetch('/auth/verify-email', {
+        method: 'POST',
+        body: JSON.stringify({ token: verificationToken }),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+
+    });
+    return await res.json();
+}
+
+export { loginUser, signupUser, verifyEmailId };

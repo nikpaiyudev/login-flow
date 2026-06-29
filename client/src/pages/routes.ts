@@ -3,7 +3,8 @@ import { createBrowserRouter } from "react-router";
 import AuthPage from "./AuthPage";
 import ProtectedRoute from "@/lib/providers/ProtectedRouter";
 import HomePage from "./HomePage";
-import ForgotPasswordPage from "./ForgotPassword";
+import ForgotPasswordPage from "./ForgotPasswordPage";
+import VerifyEmailIdPage from "./VerifyEmailIdPage";
 
 const router = createBrowserRouter([
     {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
         children: [
             { index: true, Component: AuthPage },
             { path: '/forgot-password', Component: ForgotPasswordPage },
+            { path: '/verify-email', Component: VerifyEmailIdPage },
             {
                 Component: ProtectedRoute,
                 children: [

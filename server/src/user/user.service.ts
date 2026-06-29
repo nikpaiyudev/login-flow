@@ -53,11 +53,32 @@ export class UserService {
   }
 
 
+  /**
+   * Deletes a user from the database by their email address.
+   * Removes the user record associated with the specified emailId.
+   * @param emailId - The email address of the user to delete.
+   * @returns A promise that resolves when the user is successfully deleted.
+   */
   public async deleteUser(emailId: string) {
     try {
       this.prismaService.user.delete({ where: { emailId } });
     } catch (err) {
       throw new Error('Error happened while deleting user');
+    }
+  }
+
+
+  /**
+   * Updates the email verification status of a user to verified.
+   * Sets the `isVerified` flag to true for the user with the specified emailId.
+   * @param emailId - The email address of the user whose verification status needs updating.
+   * @returns A promise that resolves to the updated user record.
+   */
+  public async updateUserEmailVerificationStatus(emailId: string,) {
+    try {
+      return this.prismaService.user.update({ where: { emailId }, data: { isVerified: true } });
+    } catch (err) {
+      throw err;
     }
   }
 
