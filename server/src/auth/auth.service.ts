@@ -137,7 +137,7 @@ export class AuthService {
                 throw new ConflictException('EmailId Verification is unsuccessfull');
             }
 
-            const isExpired = verification.expiresAt.getTime() > Date.now();
+            const isExpired = verification.expiresAt.getTime() < Date.now();
 
             if (isExpired) {
                 throw new UnauthorizedException('Token has expired');
